@@ -1,0 +1,6 @@
+<center><form action="" method="post">
+    {% csrf_token %}
+    Login:{{ form.login }}<br/>
+    Hasło:{{ form.password }}<br/>
+    <input type="submit" value="Log me">
+</form></center>

@@ -1,0 +1,7 @@
+<form action="" method="post">
+    {% csrf_token %}
+    Liczba graczy: {{ form.players_number }}<br/>
+    Gatunek: {{ form.genre }}<br/>
+    Czas gry: {{ form.game_time }}<br/>
+    <input type="submit" value="Find">
+</form>

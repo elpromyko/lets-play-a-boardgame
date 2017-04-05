@@ -1,0 +1,9 @@
+{% extends 'board/index.html' %}
+
+{% block content %}
+    {%  for game in games %}
+    {{ game.title }} {{ game.max_game_time }}<br/>
+    {% endfor %}
+<br/>
+    <a href="{% url 'index' %}">Wyszukaj ponownie</a>
+{% endblock %}

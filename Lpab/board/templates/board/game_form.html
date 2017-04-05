@@ -1,0 +1,10 @@
+{% extends 'board/index.html' %}
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+    {% for element in form %}
+    {{ element.label }}{{ element }}<br/>
+    {% endfor %}
+    <input type="submit" value="Dodaj">
+    </form><br/>
+{% endblock %}

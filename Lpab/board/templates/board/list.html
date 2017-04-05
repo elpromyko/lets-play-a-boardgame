@@ -1,0 +1,6 @@
+{% extends 'board/index.html' %}
+{% block content %}
+{% for game in games %}
+    <li><img src="/static/{{ game.title }}.jpg"/> {{ game.title }} {{ game.max_game_time }} {{ game.max_players_number }}</li>
+{% endfor %}
+{% endblock %}
