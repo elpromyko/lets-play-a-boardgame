@@ -1,0 +1,11 @@
+{% extends 'board/index.html' %}
+
+{% block content %}
+
+    {{ form.title }}<br/>
+    <a href="{% url 'delete' form.id %}">USUŃ</a>
+{% endblock %}
+
+
+
+
