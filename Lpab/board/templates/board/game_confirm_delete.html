@@ -1,0 +1,9 @@
+{% extends 'board/index.html' %}
+
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+    Napewno chcesz usunąć {{ game.title }}?<br/>
+    <input type="submit" value="Usuwamy">
+    </form><br/>
+{% endblock %}
