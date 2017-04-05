@@ -7,6 +7,11 @@
 </head>
 <body>
 <h2>Let's play a game {{ user }}</h2>
+<a href="{% url 'index' %}">Główna</a>
+<a href="{% url 'list' %}">Pokaż wszystkie gry</a>
+<a href="{% url 'add' %}">Dodaj grę</a>
+<a href="{% url 'logout' %}">Wyloguj</a><br/>
+<p>
 {% block content %}
     <form action="" method="post">
     {% csrf_token %}
@@ -15,10 +20,7 @@
     Czas gry: {{ form.game_time }}<br/>
     <input type="submit" value="Znajdź">
     </form><br/>
-    <a href="{% url 'list' %}">Pokaż wszystkie gry</a>
-    <a href="{% url 'add' %}">Dodaj grę</a>
-    <a href="{% url 'delete' %}">Usuń grę</a>
-    <a href="{% url 'logout' %}">Wyloguj</a>
 {% endblock %}
+</p>
 </body>
 </html>
