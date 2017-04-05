@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 
 from board.models import Game
 from .forms import AuthForm, ChooseCriteriaForm
@@ -68,16 +68,38 @@ class ChooseCriteriaView(View):
 class ListView(View):
     def get(self, request):
         games = Game.objects.all()
-        ctx = {'games': games}
+        ctx = {'games': games.order_by('title')}
         return render(request, 'board/list.html', ctx)
 
-class AddView(CreateView):
+class AddGameView(CreateView):
     model = Game
     fields = '__all__'
-    success_url = 'index'
+    success_url = '/'
 
-class DeleteView(View):
-    pass
+class DeleteGameView(DeleteView):
+    model = Game
+    fields = '__all__'
+    success_url = '/list'
+
+class GameView(View):
+
+    def get(self, request, game_id):
+        form = Game.objects.get(pk=game_id)
+        ctx = {'form': form}
+        return render(request, 'board/game.html', ctx)
+
+    def post(self, request):
+        pass
+        # Game.object.get(pk=game_id).delete()
+
+
+
+
+# class UpdateGameView(UpdateView):
+#     model = Game
+#     fields = '__all__'
+#     success_url = '/'
+
 
 class LogoutView(View):
     pass
