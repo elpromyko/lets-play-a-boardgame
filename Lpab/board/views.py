@@ -56,10 +56,6 @@ class MainView(View):
                 pass
 
 
-
-
-
-
 class ChooseCriteriaView(View):
     def get(self, request):
         ctx = {'form': ChooseCriteriaForm()}
@@ -88,17 +84,6 @@ class GameView(View):
         ctx = {'form': form}
         return render(request, 'board/game.html', ctx)
 
-    def post(self, request):
-        pass
-        # Game.object.get(pk=game_id).delete()
-
-
-
-
-# class UpdateGameView(UpdateView):
-#     model = Game
-#     fields = '__all__'
-#     success_url = '/'
 
 
 class LogoutView(View):
