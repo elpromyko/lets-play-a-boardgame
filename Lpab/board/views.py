@@ -67,10 +67,10 @@ class MainView(View):
                 pass
 
 
-class ChooseCriteriaView(View):
-    def get(self, request):
-        ctx = {'form': ChooseCriteriaForm()}
-        return render(request, 'board/criteria.html', ctx)
+# class ChooseCriteriaView(View):
+#     def get(self, request):
+#         ctx = {'form': ChooseCriteriaForm()}
+#         return render(request, 'board/criteria.html', ctx)
 
 class ListView(View):
     def get(self, request):
@@ -92,7 +92,16 @@ class GameView(View):
 
     def get(self, request, game_id):
         form = Game.objects.get(pk=game_id)
-        ctx = {'form': form}
+        title_en = form.title_en
+
+        bgg = BoardGameGeek(retries=10, retry_delay=2)
+        game = bgg.game(title_en)
+        game_rank = game.ranks
+        game_rank_dict = game_rank[0]
+        rank = game_rank_dict['value']
+
+        ctx = {'form': form,
+               'game_rank': rank}
         return render(request, 'board/game.html', ctx)
 
 

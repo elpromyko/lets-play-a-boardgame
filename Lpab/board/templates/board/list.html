@@ -1,6 +1,13 @@
 {% extends 'board/index.html' %}
 {% block content %}
+    <div>
+    <table class="table">
     {% for game in games %}
-        <li><img src="{{ game.model_pic }}"/><a href="{% url 'game' game.id %}">{{ game.title }}</a></li>
+        <tr>
+            <td><img src="{{ game.model_pic }}"/></td>
+            <td><a href="{% url 'game' game.id %}">{{ game.title }}</a></td>
+        </tr>
     {% endfor %}
+    </table>
+    </div>
 {% endblock %}
