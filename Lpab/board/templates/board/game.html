@@ -2,7 +2,10 @@
 
 {% block content %}
 
-    {{ form.title }}<br/>
+    <strong>{{ form.title }}</strong><br/>
+    Liczba graczy: {{ form.min_players_number }}-{{ form.max_players_number }}<br/>
+    Czas gry: do {{ form.max_game_time }} minut<br/>
+    Gatunek: {{ form.genre }}<br/>
     <a href="{% url 'delete' form.id %}">USUŃ</a>
 {% endblock %}
 
