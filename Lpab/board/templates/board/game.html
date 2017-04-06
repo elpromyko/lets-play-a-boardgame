@@ -6,7 +6,9 @@
     Liczba graczy: {{ form.min_players_number }}-{{ form.max_players_number }}<br/>
     Czas gry: do {{ form.max_game_time }} minut<br/>
     Gatunek: {{ form.genre }}<br/>
-    <a href="{% url 'delete' form.id %}">USUŃ</a>
+    Ocena BGG: <br/>
+    <a class="btn-danger" href="{% url 'delete' form.id %}">USUŃ</a>
+    <input action="action" type="button" value="Cofnij" onclick="history.go(-1);" />
 {% endblock %}
 
 

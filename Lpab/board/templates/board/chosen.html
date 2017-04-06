@@ -1,6 +1,7 @@
 {% extends 'board/index.html' %}
 
 {% block content %}
+
     <ol>
     {%  for game in games %}
         <li><a href="{% url 'game' game.id %}">{{ game.title }}</a></li> <br/>
@@ -8,4 +9,5 @@
     </ol>
 <br/>
     <a href="{% url 'index' %}">Wyszukaj ponownie</a>
+
 {% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'board/index.html' %}
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% for element in form %}
-    {{ element.label }}{{ element }}<br/>
+    {{ element.label }}:{{ element }}<br/>
     {% endfor %}
     <input type="submit" value="Dodaj">
     </form><br/>

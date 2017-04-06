@@ -4,6 +4,6 @@
     <form action="" method="post">
     {% csrf_token %}
     Napewno chcesz usunąć {{ game.title }}?<br/>
-    <input type="submit" value="Usuwamy">
+    <input type="submit" value="Usuwamy" class="btn-danger">
     </form><br/>
 {% endblock %}

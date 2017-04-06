@@ -1,16 +1,24 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
+<div style="width: 400px; height: 500px; display: inline-block; float: left">
+</div>
+<div style="float: left">
+
 <h2>Let's play a game {{ user }}</h2>
-<a href="{% url 'index' %}">Główna</a>
-<a href="{% url 'list' %}">Pokaż wszystkie gry</a>
-<a href="{% url 'add' %}">Dodaj grę</a>
-<a href="{% url 'logout' %}">Wyloguj</a><br/>
+<a href="{% url 'index' %}" class="btn">Główna</a>
+<a href="{% url 'list' %}" class="btn">Pokaż wszystkie gry</a>
+<a href="{% url 'add' %}" class="btn">Dodaj grę</a>
+<a href="{% url 'logout' %}" class="btn">Wyloguj</a>
+
+
 <p>
 {% block content %}
     <form action="" method="post">
@@ -22,5 +30,7 @@
     </form><br/>
 {% endblock %}
 </p>
+</div>
+
 </body>
 </html>
