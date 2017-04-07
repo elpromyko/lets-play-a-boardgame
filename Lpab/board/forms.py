@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import authenticate
-
 from board.models import Genre
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 genres = Genre.objects.all()
 genre_choices = [(genre.id, genre.name) for genre in genres]
@@ -26,7 +27,7 @@ class AuthForm(forms.Form):
         return cleaned_data
 
 class ChooseCriteriaForm(forms.Form):
-    players_number = forms.IntegerField(label='players_number')
+    players_number = forms.IntegerField(initial=1, label='players_number', validators=[MinValueValidator(1)])
     genre = forms.ChoiceField(choices=genre_choices, label='genre')
     game_time = forms.IntegerField(label='game_time')
 

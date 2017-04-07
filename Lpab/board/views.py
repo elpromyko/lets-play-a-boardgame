@@ -107,7 +107,7 @@ class GameView(View):
                    'game_rank': rank}
             return render(request, 'board/game.html', ctx)
 
-        except AttributeError:  
+        except AttributeError:
             rank = "n/a"
             ctx = {'form': form,
                    'game_rank': rank}

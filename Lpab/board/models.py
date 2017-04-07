@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 from django.forms.widgets import PasswordInput
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Genre(models.Model):
     name = models.CharField(max_length=32)
@@ -12,7 +13,7 @@ class Genre(models.Model):
 class Game(models.Model):
     title = models.CharField(max_length=128, verbose_name='Tytuł')
     title_en = models.CharField(max_length=128, verbose_name='Tytuł ang')
-    min_players_number = models.IntegerField(verbose_name='Minimalna liczba graczy')
+    min_players_number = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(10)], verbose_name='Minimalna liczba graczy')
     max_players_number = models.IntegerField(verbose_name='Maksymalna liczba graczy')
     genre = models.ForeignKey(Genre, max_length=32, verbose_name='Gatunek')
     max_game_time = models.IntegerField(verbose_name='Czas gry (w min)')
