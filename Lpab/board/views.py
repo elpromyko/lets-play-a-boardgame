@@ -11,6 +11,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth import get_user_model, login, logout
 
 
+
 import json
 import requests
 import urllib
@@ -47,15 +48,15 @@ class MainView(View):
             play_num = form.cleaned_data['players_number']
             genre = form.cleaned_data['genre']
             game_time = form.cleaned_data['game_time']
-            if play_num == 1:
-                games = Game.objects.filter(genre=genre,
-                                            max_game_time__lte=game_time,
-                                            min_players_number=play_num)
-                ctx = {'games': games}
+            # if play_num == 1:
+            #     games = Game.objects.filter(genre=genre,
+            #                                 max_game_time__lte=game_time,
+            #                                 min_players_number=play_num)
+            #     ctx = {'games': games}
+            #
+            #     return render(request, 'board/chosen.html', ctx)
 
-                return render(request, 'board/chosen.html', ctx)
-
-            elif play_num > 1:
+            if play_num >= 1:
                 games = Game.objects.filter(max_game_time__lte=game_time,
                                             min_players_number__lte=play_num,
                                             max_players_number__gte=play_num,
@@ -65,6 +66,7 @@ class MainView(View):
                 return render(request, 'board/chosen.html', ctx)
             else:
                 pass
+
 
 
 # class ChooseCriteriaView(View):
@@ -94,15 +96,22 @@ class GameView(View):
         form = Game.objects.get(pk=game_id)
         title_en = form.title_en
 
-        bgg = BoardGameGeek(retries=10, retry_delay=2)
-        game = bgg.game(title_en)
-        game_rank = game.ranks
-        game_rank_dict = game_rank[0]
-        rank = game_rank_dict['value']
+        try:
+            bgg = BoardGameGeek(retries=10, retry_delay=2)
+            game = bgg.game(title_en)
+            game_rank = game.ranks
+            game_rank_dict = game_rank[0]
+            rank = game_rank_dict['value']
 
-        ctx = {'form': form,
-               'game_rank': rank}
-        return render(request, 'board/game.html', ctx)
+            ctx = {'form': form,
+                   'game_rank': rank}
+            return render(request, 'board/game.html', ctx)
+
+        except AttributeError:  
+            rank = "n/a"
+            ctx = {'form': form,
+                   'game_rank': rank}
+            return render(request, 'board/game.html', ctx)
 
 
 
