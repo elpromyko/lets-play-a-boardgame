@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django import forms
-from django.forms.widgets import PasswordInput
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Genre(models.Model):
@@ -18,7 +16,6 @@ class Game(models.Model):
     genre = models.ForeignKey(Genre, max_length=32, verbose_name='Gatunek')
     max_game_time = models.IntegerField(verbose_name='Czas gry (w min)')
     model_pic = models.ImageField(upload_to='board/static/', default='board/static/no-image-icon.jpg', verbose_name='Okładka')
-    # single_player_mode = models.BooleanField(default=False, verbose_name='Dla jednego gracza')
 
 
 

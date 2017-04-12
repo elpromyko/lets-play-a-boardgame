@@ -1,4 +1,3 @@
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
@@ -7,18 +6,11 @@ from django.views.generic import CreateView, DeleteView, UpdateView
 
 from board.models import Game
 from .forms import AuthForm, ChooseCriteriaForm
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth import get_user_model, login, logout
+from django.urls import reverse
+from django.contrib.auth import login, logout
 
 
 
-import json
-import requests
-import urllib
-import xml.etree.ElementTree as ET
-import xml
-import urllib.request
-import boardgamegeek
 from boardgamegeek import BoardGameGeek
 
 class LoginView(View):
@@ -66,13 +58,6 @@ class MainView(View):
                 return render(request, 'board/chosen.html', ctx)
             else:
                 pass
-
-
-
-# class ChooseCriteriaView(View):
-#     def get(self, request):
-#         ctx = {'form': ChooseCriteriaForm()}
-#         return render(request, 'board/criteria.html', ctx)
 
 class ListView(View):
     def get(self, request):
