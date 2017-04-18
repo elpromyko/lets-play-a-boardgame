@@ -64,7 +64,6 @@ class AddGameView(CreateView):
     fields = '__all__'
     success_url = '/'
 
-
 class DeleteGameView(DeleteView):
     model = Game
     fields = '__all__'
