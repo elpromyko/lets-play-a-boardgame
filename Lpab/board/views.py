@@ -2,16 +2,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView
-
-
 from board.models import Game
 from .forms import AuthForm, ChooseCriteriaForm
 from django.urls import reverse
 from django.contrib.auth import login, logout
-
-
-
 from boardgamegeek import BoardGameGeek
+
 
 class LoginView(View):
     def get(self, request):
@@ -29,6 +25,7 @@ class LoginView(View):
         else:
             return render(request, 'board/login.html', ctx)
 
+
 class MainView(View):
     def get(self, request):
         ctx = {'form': ChooseCriteriaForm()}
@@ -40,24 +37,20 @@ class MainView(View):
             play_num = form.cleaned_data['players_number']
             genre = form.cleaned_data['genre']
             game_time = form.cleaned_data['game_time']
-            # if play_num == 1:
-            #     games = Game.objects.filter(genre=genre,
-            #                                 max_game_time__lte=game_time,
-            #                                 min_players_number=play_num)
-            #     ctx = {'games': games}
-            #
-            #     return render(request, 'board/chosen.html', ctx)
+            games = Game.objects.filter(max_game_time__lte=game_time,
+                                        min_players_number__lte=play_num,
+                                        max_players_number__gte=play_num,
+                                        genre=genre)
+            ctx = {'games': games}
 
-            if play_num >= 1:
-                games = Game.objects.filter(max_game_time__lte=game_time,
-                                            min_players_number__lte=play_num,
-                                            max_players_number__gte=play_num,
-                                            genre=genre)
+            return render(request, 'board/chosen.html', ctx)
 
-                ctx = {'games': games}
-                return render(request, 'board/chosen.html', ctx)
-            else:
-                pass
+        else:
+            ctx = {'form': ChooseCriteriaForm(),
+                   'invalid_data': "Wpisz poprawne dane"}
+
+            return render(request, 'board/index.html', ctx)
+
 
 class ListView(View):
     def get(self, request):
@@ -65,15 +58,18 @@ class ListView(View):
         ctx = {'games': games.order_by('title')}
         return render(request, 'board/list.html', ctx)
 
+
 class AddGameView(CreateView):
     model = Game
     fields = '__all__'
     success_url = '/'
 
+
 class DeleteGameView(DeleteView):
     model = Game
     fields = '__all__'
     success_url = '/list'
+
 
 class GameView(View):
 
@@ -99,11 +95,11 @@ class GameView(View):
             return render(request, 'board/game.html', ctx)
 
 
-
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('login'))
+
 
 class BggView(View):
 
@@ -114,31 +110,3 @@ class BggView(View):
 
         ctx = {'game': game_rank}
         return render(request, 'board/bgg.html', ctx)
-
-
-
-# class JsonView(View):
-#     def get(self, request):
-#
-#         url = 'https://bgg-json.azurewebsites.net/thing/31260'
-#         t = requests.get(url)
-#         new_dictionary = t.json()
-#         rank = new_dictionary['rank']
-#
-#         ctx = {'json': rank}
-#         return render(request, 'board/json.html', ctx)
-#
-# class XmlView(View):
-#     def get(self, request):
-#
-#         url = 'https://www.boardgamegeek.com/xmlapi2/search?query=dominion&exact=1&type=boardgame'
-#         response = urllib.request.urlopen(url)
-#         xml = response.read()
-#         root = ET.fromstring(xml)
-#
-#         ctx = {'xml': root}
-
-
-
-
-

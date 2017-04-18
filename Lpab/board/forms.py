@@ -29,5 +29,5 @@ class AuthForm(forms.Form):
 class ChooseCriteriaForm(forms.Form):
     players_number = forms.IntegerField(initial=1, label='players_number', validators=[MinValueValidator(1)])
     genre = forms.ChoiceField(choices=genre_choices, label='genre')
-    game_time = forms.IntegerField(label='game_time')
+    game_time = forms.IntegerField(label='game_time', validators=[MinValueValidator(1)])
 
